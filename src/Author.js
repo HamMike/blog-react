@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+
 
 class Author extends Component {
   render() {

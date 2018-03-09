@@ -1,43 +1,39 @@
 import React, { Component } from 'react';
-import Comment from './Comment';
-import Author from './Author';
-import './App.css';
+import Post from './Post';
+import FavoriteMovie from './FavoriteMovie';
+import FavoriteFood from './FavoriteFood';
+import About from './About';
+import Homepage from './Homepage';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 
-class Post extends Component {
+class App extends Component {
   render() {
 
     const { title, authors, body, comments } = this.props
 
-    {/*let allComments = [
-      <Comment text={comments[0]}/>,
-      <Comment text={comments[1]}/>,
-      <Comment text={comments[2]}/>
-    ]*/}
-
-    let allComments = comments.map(function(comment, index) {
-      return <Comment key={index} text={comment} />
-    })
-
-    {/*let allAuthors = [
-      <Author text={authors[0]}/>,
-      <Author text={authors[1]}/>,
-      <Author text={authors[2]}/>
-    ]*/}
-
-    let allAuthors = authors.map(function(author, index) {
-      return <Author key={index} text={author} />
-    })
-
     return (
-      <div>
-        <h1>{title}</h1>
-        {allAuthors}
-        <p> {body} </p>
-        <h3>Comments:</h3>
-        {allComments}
-      </div>
+      <Router>
+        <div>
+          <nav>
+            <Link to='/'>Home Page</Link>{' '}
+            <Link to='/Post'>Main Blog</Link>{' '}
+            <Link to='/FavoriteMovie'>Favorite Movies</Link>{' '}
+            <Link to='/FavoriteFood'>Favorite Foods</Link>{' '}
+            <Link to='/About'>About author</Link>
+          </nav>
+          <Route exact path='/' component={Homepage} />
+          <Route path='/Post' component={() => <Post title={title} authors={authors} body={body} comments={comments} />} />
+          <Route path='/FavoriteMovie' component={FavoriteMovie}/>
+          <Route path='/FavoriteFood' component={FavoriteFood}/>
+          <Route path='/About' component={About}/>
+        </div>
+      </Router>
     );
   }
 }
 
-export default Post;
+export default App;
